@@ -5,12 +5,13 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "vehicle")
 data class VehicleEntity (
-    @PrimaryKey
-    val id: Int,
-    val name: String,
-    val make: String,
-    val model: String,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long,
+
+    val name: String?,
+    val make: String?,
+    val model: String?,
     val year : Int,
-    val VIN: String,
-    val fuelType: String
+    val VIN: String?,
+    val fuelType: String?
 )

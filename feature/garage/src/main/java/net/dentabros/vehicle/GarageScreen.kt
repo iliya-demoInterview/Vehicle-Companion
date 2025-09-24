@@ -1,6 +1,5 @@
 package net.dentabros.vehicle
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,15 +13,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun GarageScreen(state: GarageUIState, createVehicle: () -> Unit) {
     when (state) {
         GarageUIState.Empty -> EmptyGarage(createVehicle)
-        is GarageUIState.Success -> VehiclesList(state.data)
+        is GarageUIState.Success -> {
+            Column {
+                Button(onClick = {createVehicle()}) {
+                    Text(text = "Create Vehicle")
+                }
+                VehiclesList(state.data)}
+            }
+
     }
 }
 
@@ -75,5 +79,10 @@ fun VehicleItem(vehicle: Vehicle) {
 //            painter = ImagePainter(vehicle.id)
 //            contentDescription = stringResource(id = R.string.vehicle_image)
 //        )
+
+        val text = "${vehicle.name} ${vehicle.make} ${vehicle.model}"
+        Text(
+            text = text
+        )
     }
 }

@@ -1,7 +1,7 @@
 package net.dentabros.vehicle.navigation
 
 import androidx.compose.runtime.getValue
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -14,7 +14,7 @@ import net.dentabros.vehicle.GarageViewModel
 const val vehicleRoute = "vehicle_route"
 const val vehicleScreen = "vehicle_screen"
 
-fun NavController.navigateToNotification(navOptions: NavOptions? = null) {
+fun NavController.navigateToVehicles(navOptions: NavOptions? = null) {
     this.navigate(vehicleRoute, navOptions)
 }
 

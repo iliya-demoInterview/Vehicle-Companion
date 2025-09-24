@@ -18,10 +18,11 @@ object DataBaseModule {
     @Singleton
     fun provideMovieDatabase(@ApplicationContext context: Context): VehicleDatabase {
         return Room.databaseBuilder(
-            context,
-            VehicleDatabase::class.java,
-            "vehicle.db"
-        ).build()
+                context,
+                VehicleDatabase::class.java,
+                "vehicle.db"
+            )
+            .build()
     }
 
     @Singleton

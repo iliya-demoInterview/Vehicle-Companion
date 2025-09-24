@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.hilt.android)
     implementation(project(":feature:garage"))
+    implementation(project(":feature:create-vehicle"))
     implementation(libs.androidx.navigation.compose)
     ksp(libs.hilt.android.compiler)
     testImplementation(libs.junit)

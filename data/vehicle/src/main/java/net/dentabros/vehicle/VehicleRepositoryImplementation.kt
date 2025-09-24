@@ -7,8 +7,13 @@ import javax.inject.Inject
 
 internal class VehicleRepositoryImplementation @Inject constructor(
     private val vehicleDAO: VehicleDAO,
-    private val vehicleMapper: VehicleMapper
+    private val vehicleMapper: VehicleMapper,
+    private val vehicleEntityMapper: VehicleEntityMapper
 ) : VehicleRepository {
     override fun getVehicles(): Flow<List<Vehicle>> =
         vehicleDAO.getVehicles().map { vehicleEntities -> vehicleEntities.map(vehicleMapper) }
+
+    override suspend fun insert(vehicle: ModifyVehicle) {
+        vehicleDAO.insert(vehicleEntityMapper(vehicle))
+    }
 }

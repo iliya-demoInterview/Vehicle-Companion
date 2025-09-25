@@ -1,5 +1,6 @@
 package net.dentabros.vehicle
 
+import androidx.core.net.toUri
 import net.dentabros.db.VehicleEntity
 import javax.inject.Inject
 
@@ -12,6 +13,7 @@ internal class VehicleMapper @Inject constructor() : (VehicleEntity) -> Vehicle 
             model = entity.model,
             year = entity.year,
             VIN = entity.VIN,
-            fuelType = entity.fuelType
+            fuelType = entity.fuelType,
+            uri = entity.uri?.toUri()
         )
 }

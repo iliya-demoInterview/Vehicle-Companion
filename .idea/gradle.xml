@@ -15,8 +15,11 @@
             <option value="$PROJECT_DIR$/db" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/create-vehicle" />
+            <option value="$PROJECT_DIR$/feature/edit-vehicle" />
             <option value="$PROJECT_DIR$/feature/garage" />
+            <option value="$PROJECT_DIR$/feature/shared" />
             <option value="$PROJECT_DIR$/model" />
+            <option value="$PROJECT_DIR$/network" />
           </set>
         </option>
       </GradleProjectSettings>

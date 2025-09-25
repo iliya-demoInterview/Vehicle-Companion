@@ -16,6 +16,8 @@ import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import net.dentabros.create_vehicle.navigation.createVehicleScreen
 import net.dentabros.create_vehicle.navigation.navigateToCreateVehicle
+import net.dentabros.edit_vehicle.navigation.editVehicleScreen
+import net.dentabros.edit_vehicle.navigation.navigateToEditVehicle
 import net.dentabros.vehicle.navigation.vehicleRoute
 import net.dentabros.vehicle.navigation.garageScreen
 import net.dentabros.vehicle.navigation.navigateToVehicles
@@ -36,8 +38,9 @@ class MainActivity : ComponentActivity() {
                         startDestination = vehicleRoute,
                         Modifier.padding(innerPadding)
                     ){
-                        garageScreen(navController::navigateToCreateVehicle)
+                        garageScreen(navController::navigateToCreateVehicle, navController::navigateToEditVehicle)
                         createVehicleScreen(navController::popBackStack)
+                        editVehicleScreen(navController::popBackStack)
                     }
                 }
             }

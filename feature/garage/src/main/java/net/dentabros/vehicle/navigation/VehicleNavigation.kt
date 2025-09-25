@@ -19,7 +19,8 @@ fun NavController.navigateToVehicles(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.garageScreen(
-    createVehicle: () -> Unit
+    createVehicle: () -> Unit,
+        editVehicle: (Long) -> Unit
 ) {
     navigation(startDestination = vehicleScreen, route = vehicleRoute) {
         composable(route = vehicleScreen) {
@@ -28,7 +29,8 @@ fun NavGraphBuilder.garageScreen(
 
             GarageScreen(
                 state = state,
-                createVehicle = createVehicle
+                createVehicle = createVehicle,
+                editVehicle = editVehicle
             )
         }
 

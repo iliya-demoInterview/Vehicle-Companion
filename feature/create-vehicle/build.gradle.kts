@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(project(":data:vehicle"))
+    implementation(project(":feature:shared"))
     implementation(libs.androidx.foundation)
     implementation(libs.material3)
     implementation(libs.coil.compose)

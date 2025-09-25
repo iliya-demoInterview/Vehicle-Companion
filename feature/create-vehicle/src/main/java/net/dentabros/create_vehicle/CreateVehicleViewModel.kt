@@ -5,8 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import net.dentabros.vehicle.ModifyVehicle
-import net.dentabros.vehicle.Vehicle
+import net.dentabros.vehicle.MutableVehicle
 import net.dentabros.vehicle.VehicleRepository
 import javax.inject.Inject
 
@@ -15,7 +14,7 @@ import javax.inject.Inject
 internal class CreateVehicleViewModel @Inject constructor(
     private val vehicleRepository: VehicleRepository
 ) : ViewModel() {
-    val vehicle = mutableStateOf(ModifyVehicle())
+    val vehicle = mutableStateOf(MutableVehicle())
 
     fun createVehicle(onSuccess: () -> Unit) {
         viewModelScope.launch {

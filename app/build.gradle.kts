@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(project(":feature:garage"))
     implementation(project(":feature:create-vehicle"))
+    implementation(project(":feature:edit-vehicle"))
     implementation(libs.androidx.navigation.compose)
     ksp(libs.hilt.android.compiler)
     testImplementation(libs.junit)

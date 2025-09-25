@@ -6,8 +6,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import net.dentabros.create_vehicle.CreateVehicleScreen
 import net.dentabros.create_vehicle.CreateVehicleViewModel
+import net.dentabros.shared.ModifyVehicleScreen
 
 const val createVehicleRoute = "create_vehicle_route"
 const val createVehicleScreen = "vehicle_screen"
@@ -22,7 +22,7 @@ fun NavGraphBuilder.createVehicleScreen(
     navigation(startDestination = createVehicleScreen, route = createVehicleRoute) {
         composable(route = createVehicleScreen) {
             val createVehicleViewModel: CreateVehicleViewModel = hiltViewModel()
-            CreateVehicleScreen(
+            ModifyVehicleScreen(
                 vehicle = createVehicleViewModel.vehicle,
                 onSave = createVehicleViewModel::createVehicle,
                 onSuccess = onSuccess,

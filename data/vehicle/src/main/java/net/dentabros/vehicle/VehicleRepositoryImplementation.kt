@@ -2,7 +2,7 @@ package net.dentabros.vehicle
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import net.dentabros.db.VehicleDAO
+import net.dentabros.db.vehicle.VehicleDAO
 import javax.inject.Inject
 
 internal class VehicleRepositoryImplementation @Inject constructor(

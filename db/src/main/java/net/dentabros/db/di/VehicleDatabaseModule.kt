@@ -9,7 +9,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import net.dentabros.db.VehicleDatabase
 import javax.inject.Singleton
 import dagger.hilt.components.SingletonComponent
-import net.dentabros.db.VehicleDAO
+import net.dentabros.db.poi.FavouritesDAO
+import net.dentabros.db.vehicle.VehicleDAO
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -29,5 +30,10 @@ object DataBaseModule {
     @Provides
     fun provideVehicleDAO(vehicleDatabase: VehicleDatabase): VehicleDAO =
         vehicleDatabase.getVehicleDAO()
+
+    @Singleton
+    @Provides
+    fun provideFavouritesDAO(vehicleDatabase: VehicleDatabase): FavouritesDAO =
+        vehicleDatabase.getFavouritesDAO()
 
 }

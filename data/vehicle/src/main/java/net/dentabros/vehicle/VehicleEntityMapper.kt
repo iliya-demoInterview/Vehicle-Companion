@@ -1,6 +1,6 @@
 package net.dentabros.vehicle
 
-import net.dentabros.db.VehicleEntity
+import net.dentabros.db.vehicle.VehicleEntity
 import javax.inject.Inject
 
 internal class VehicleEntityMapper @Inject constructor() : (MutableVehicle) -> VehicleEntity {

@@ -25,6 +25,9 @@ import coil3.compose.AsyncImage
 
 @Composable
 fun GarageScreen(state: GarageUIState, createVehicle: () -> Unit, editVehicle: (Long) -> Unit) {
+
+
+
     when (state) {
         GarageUIState.Empty -> EmptyGarage(createVehicle)
         is GarageUIState.Success -> {

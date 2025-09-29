@@ -1,6 +1,7 @@
 package net.dentabros.shared
 
 import android.content.Intent
+import android.widget.ScrollView
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -11,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -43,7 +46,9 @@ fun ModifyVehicleScreen(
         }
     )
 
-    Column() {
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())
+        //.weight(weight = 1f, fill = false)
+    ) {
         val textFieldModifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)

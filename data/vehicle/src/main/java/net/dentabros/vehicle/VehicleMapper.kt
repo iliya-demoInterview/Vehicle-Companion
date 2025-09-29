@@ -1,7 +1,7 @@
 package net.dentabros.vehicle
 
 import androidx.core.net.toUri
-import net.dentabros.db.VehicleEntity
+import net.dentabros.db.vehicle.VehicleEntity
 import javax.inject.Inject
 
 internal class VehicleMapper @Inject constructor() : (VehicleEntity) -> Vehicle {

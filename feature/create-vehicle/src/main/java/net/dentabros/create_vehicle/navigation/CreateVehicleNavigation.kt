@@ -1,6 +1,8 @@
 package net.dentabros.create_vehicle.navigation
 
+import androidx.compose.runtime.getValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -22,10 +24,14 @@ fun NavGraphBuilder.createVehicleScreen(
     navigation(startDestination = createVehicleScreen, route = createVehicleRoute) {
         composable(route = createVehicleScreen) {
             val createVehicleViewModel: CreateVehicleViewModel = hiltViewModel()
+            val vehicle by createVehicleViewModel.vehicle.collectAsStateWithLifecycle()
+            val nameHasErrors by createVehicleViewModel.nameHasErrors.collectAsStateWithLifecycle()
             ModifyVehicleScreen(
-                vehicle = createVehicleViewModel.vehicle,
-                onSave = createVehicleViewModel::createVehicle,
+                vehicle = vehicle,
+                onSave = createVehicleViewModel::saveChanged,
                 onSuccess = onSuccess,
+                onVehicleUiEvent = createVehicleViewModel::onTextFieldChangeEvent,
+                nameHasErros = nameHasErrors
             )
         }
 

@@ -28,9 +28,11 @@ import net.dentabros.vehicle.MutableVehicle
 
 @Composable
 fun ModifyVehicleScreen(
-    vehicle: MutableState<MutableVehicle>,
+    vehicle: MutableVehicle,
     onSave: (onSuccess: () -> Unit) -> Unit,
-    onSuccess: () -> Unit
+    onSuccess: () -> Unit,
+    onVehicleUiEvent: (VehicleUiEvent) -> Unit,
+    nameHasErros: Boolean,
 ) {
     val context = LocalContext.current
 
@@ -42,19 +44,18 @@ fun ModifyVehicleScreen(
                 context.contentResolver.takePersistableUriPermission(it, flag)
             }
 
-            vehicle.value = vehicle.value.copy(uri = uri)
+            onVehicleUiEvent(VehicleUiEvent.UriChanged(uri))
         }
     )
 
     Column(modifier = Modifier.verticalScroll(rememberScrollState())
-        //.weight(weight = 1f, fill = false)
     ) {
         val textFieldModifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
 
         AsyncImage(
-            model = vehicle.value.uri,
+            model = vehicle.uri,
             contentDescription = "Vehicle Image",
             modifier = Modifier.clickable{
                 photoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -68,32 +69,38 @@ fun ModifyVehicleScreen(
         Spacer(modifier = Modifier.height(16.dp))
         TextField(
             modifier = textFieldModifier,
-            value = vehicle.value.name,
-            onValueChange = { vehicle.value = vehicle.value.copy(name = it) },
-            label = { Text(text = "Name") }
+            value = vehicle.name,
+            onValueChange = { onVehicleUiEvent(VehicleUiEvent.NameChanged(it)) },
+            label = { Text(text = "Name") },
+            isError = nameHasErros,
+            supportingText = {
+                if (nameHasErros) {
+                    Text("Name is required")
+                }
+            }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
         TextField(
             modifier = textFieldModifier,
-            value = vehicle.value.make,
-            onValueChange = { vehicle.value = vehicle.value.copy(make = it) },
+            value = vehicle.make,
+            onValueChange = { onVehicleUiEvent(VehicleUiEvent.MakeChanged(it)) },
             label = { Text(text = "Make") }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
         TextField(
             modifier = textFieldModifier,
-            value = vehicle.value.model,
-            onValueChange = { vehicle.value = vehicle.value.copy(model = it) },
-            label = { Text(text = "Name") }
+            value = vehicle.model,
+            onValueChange = { onVehicleUiEvent(VehicleUiEvent.ModelChanged(it)) },
+            label = { Text(text = "Model") }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
         TextField(
             modifier = textFieldModifier,
-            value = vehicle.value.VIN,
-            onValueChange = { vehicle.value = vehicle.value.copy(VIN = it) },
+            value = vehicle.VIN,
+            onValueChange = { onVehicleUiEvent(VehicleUiEvent.VINChanged(it)) },
             label = { Text(text = "VIN") }
         )
 

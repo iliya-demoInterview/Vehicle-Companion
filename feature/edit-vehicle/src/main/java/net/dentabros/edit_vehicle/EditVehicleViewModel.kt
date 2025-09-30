@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
+import net.dentabros.shared.ModifyVehicleBaseViewModel
 import net.dentabros.vehicle.MutableVehicle
 import net.dentabros.vehicle.VehicleRepository
 import javax.inject.Inject
@@ -20,9 +21,8 @@ import kotlin.text.toLong
 internal class EditVehicleViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val vehicleRepository: VehicleRepository
-) : ViewModel() {
+) : ModifyVehicleBaseViewModel() {
     private var vehicleId: String? = savedStateHandle["vehicleId"]
-    val vehicle = mutableStateOf(MutableVehicle())
 
     init {
         getVehicle()
@@ -32,22 +32,18 @@ internal class EditVehicleViewModel @Inject constructor(
     private fun getVehicle() {
         vehicleId?.let {
             viewModelScope.launch {
-                vehicle.value = vehicleRepository.getVehicle(it.toLong())
+                _vehicle.value = vehicleRepository.getVehicle(it.toLong())
             }
         }
-
     }
 
 
-    fun update(onSuccess: () -> Unit) {
+    override fun save(onSuccess: () -> Unit) {
         viewModelScope.launch {
-            //TODO validation
             runCatching {
                 vehicleRepository.update(vehicle.value)
                 onSuccess()
             }
-
-
         }
     }
 }

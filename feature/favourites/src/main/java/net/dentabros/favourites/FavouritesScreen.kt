@@ -7,6 +7,6 @@ import net.dentabros.shared.PoiList
 fun FavouritesScreen(state: FavouritesUIState) {
     when (state) {
         is FavouritesUIState.Empty -> {}
-        is FavouritesUIState.Success -> PoiList(state.data, {})
+        is FavouritesUIState.Success -> PoiList(state.data, {}, onDeleteFromFavourites = {})
     }
 }

@@ -6,6 +6,7 @@ data class POI (
     val primaryCategory: String,
     val url : String,
     val rating: Double,
-    val imageUrl: String
+    val imageUrl: String,
+    val isFavourite: Boolean = false
 ){
 }

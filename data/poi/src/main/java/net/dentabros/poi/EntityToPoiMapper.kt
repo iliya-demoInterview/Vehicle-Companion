@@ -12,5 +12,6 @@ class EntityToPoiMapper @Inject constructor() : (POIEntity) -> POI {
             imageUrl = entity.imageUrl,
             rating = entity.rating,
             primaryCategory = entity.primaryCategory,
+            isFavourite = true,
         )
 }

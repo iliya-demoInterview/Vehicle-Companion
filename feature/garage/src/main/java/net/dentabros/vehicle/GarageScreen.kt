@@ -1,8 +1,5 @@
 package net.dentabros.vehicle
 
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,12 +11,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 
@@ -86,7 +82,9 @@ fun VehiclesList(vehicles: List<Vehicle>, editVehicle: (Long) -> Unit) {
 @Composable
 fun VehicleItem(vehicle: Vehicle, editVehicle: (Long) -> Unit) {
 
-    ElevatedCard() {
+    ElevatedCard(
+        modifier = Modifier.fillMaxSize()
+    ) {
         Row {
             AsyncImage(
                 model = vehicle.uri,
@@ -95,10 +93,30 @@ fun VehicleItem(vehicle: Vehicle, editVehicle: (Long) -> Unit) {
             )
 
             Column {
-                val text = "${vehicle.name} ${vehicle.make?.let { it }} ${vehicle.model}"
-                Text(
-                    text = text
-                )
+
+                with(vehicle){
+                    name?.let {
+                        Text(
+                            text = it,
+                            style = MaterialTheme.typography.titleLarge,
+                        )
+                    }
+
+
+                    make?.let {
+                        Text(
+                            it
+                        )
+                    }
+
+                    model?.let {
+                        Text(
+                            it
+                        )
+                    }
+
+                }
+
 
                 Button(
                     onClick = {editVehicle(vehicle.id)}

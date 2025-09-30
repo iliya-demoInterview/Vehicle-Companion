@@ -5,11 +5,11 @@ import net.dentabros.shared.PoiList
 
 
 @Composable
-internal fun PoiScreen(state: PoiUIState, onAddToFavourites: (POI) -> Unit) {
+internal fun PoiScreen(state: PoiUIState, onAddToFavourites: (POI) -> Unit, onDeleteFromFavourites: (POI) -> Unit) {
     when (state) {
         PoiUIState.Error -> {}
         PoiUIState.Loading -> {}
-        is PoiUIState.Success -> PoiList(state.data, onAddToFavourites)
+        is PoiUIState.Success -> PoiList(state.data, onAddToFavourites, onDeleteFromFavourites)
     }
 }
 

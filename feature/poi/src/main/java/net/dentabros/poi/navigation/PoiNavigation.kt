@@ -27,7 +27,8 @@ fun NavGraphBuilder.poiScreen(
 
             PoiScreen(
                 state = state,
-                poiViewModel::addToFavourites
+                poiViewModel::addToFavourites,
+                poiViewModel::deleteFromFavourites
             )
         }
 

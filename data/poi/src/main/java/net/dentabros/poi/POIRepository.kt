@@ -6,4 +6,5 @@ interface POIRepository {
     suspend fun getPOIs(): Result<List<POI>>
     fun getFavourites(): Flow<List<POI>>
     suspend fun insert(poi: POI)
+    suspend fun delete(poi: POI)
 }

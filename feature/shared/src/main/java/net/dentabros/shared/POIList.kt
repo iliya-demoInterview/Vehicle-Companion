@@ -10,10 +10,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.sharp.Favorite
+import androidx.compose.material.icons.sharp.FavoriteBorder
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -32,20 +32,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
-import coil3.request.crossfade
 import kotlinx.coroutines.launch
 import net.dentabros.poi.POI
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PoiList(items: List<POI>, onAddToFavourites: (POI) -> Unit) {
+fun PoiList(
+    items: List<POI>,
+    onAddToFavourites: (POI) -> Unit,
+    onDeleteFromFavourites: (POI) -> Unit
+) {
     val listState = rememberLazyListState()
     var showBottomSheet by remember { mutableStateOf(false) }
     var selectedItem: POI? by remember { mutableStateOf(null) }
@@ -60,7 +59,7 @@ fun PoiList(items: List<POI>, onAddToFavourites: (POI) -> Unit) {
     ) {
 
         items(items, key = { it.id }) { poi ->
-            PoiItem(poi, onAddToFavourites) {
+            PoiItem(poi, onAddToFavourites, onDeleteFromFavourites) {
                 coroutineScope.launch {
                     selectedItem = it
                     showBottomSheet = true
@@ -87,7 +86,12 @@ fun PoiList(items: List<POI>, onAddToFavourites: (POI) -> Unit) {
 }
 
 @Composable
-fun PoiItem(item: POI, onAddToFavourites: (POI) -> Unit, onShowDetails: (POI) -> Unit) {
+fun PoiItem(
+    item: POI,
+    onAddToFavourites: (POI) -> Unit,
+    onDeleteFromFavourites: (POI) -> Unit,
+    onShowDetails: (POI) -> Unit
+) {
     ElevatedCard(modifier = Modifier.fillMaxWidth()) {
         Row {
 
@@ -99,12 +103,12 @@ fun PoiItem(item: POI, onAddToFavourites: (POI) -> Unit, onShowDetails: (POI) ->
             Column(
                 modifier = Modifier.weight(1f)
             ) {
-                    item.name?.let {
-                        Text(
-                            text = it,
-                            style = MaterialTheme.typography.titleLarge,
-                        )
-                    }
+                item.name?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.titleLarge,
+                    )
+                }
 
 
                 Text(text = item.primaryCategory)
@@ -126,9 +130,20 @@ fun PoiItem(item: POI, onAddToFavourites: (POI) -> Unit, onShowDetails: (POI) ->
             }
 
 
-            IconButton(onClick = { onAddToFavourites(item) }) {
-                Icon(imageVector = Icons.Default.Favorite, contentDescription = "Rating")
+            IconButton(onClick = {
+                if (!item.isFavourite) {
+                    onAddToFavourites(item)
+                } else {
+                    onDeleteFromFavourites(item)
+                }
+            }) {
+                val icon =
+                    if (item.isFavourite) Icons.Sharp.Favorite else Icons.Sharp.FavoriteBorder
+                Icon(
+                    imageVector = icon, contentDescription = "Rating"
+                )
             }
+
 
         }
     }

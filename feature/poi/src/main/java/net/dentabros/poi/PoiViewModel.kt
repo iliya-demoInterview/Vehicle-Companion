@@ -1,9 +1,9 @@
 package net.dentabros.poi
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -21,10 +21,16 @@ internal class PoiViewModel @Inject constructor(
         getPoi()
     }
 
-    fun getPoi(){
+    fun getPoi() {
         viewModelScope.launch {
-            poiRepository.getPOIs().onSuccess {
-                _state.value = PoiUIState.Success(it)
+            poiRepository.getPOIs().onSuccess { pois ->
+                poiRepository.getFavourites().collect { favourites ->
+                    _state.value = PoiUIState.Success(pois.map { it.copy(
+                        isFavourite = favourites.any { favourite ->
+                            favourite.id == it.id
+                        }
+                    )})
+                }
             }.onFailure {
                 _state.value = PoiUIState.Error
             }
@@ -32,9 +38,15 @@ internal class PoiViewModel @Inject constructor(
     }
 
 
-    fun addToFavourites(poi: POI){
+    fun addToFavourites(poi: POI) {
         viewModelScope.launch {
             poiRepository.insert(poi)
+        }
+    }
+
+    fun deleteFromFavourites(poi: POI) {
+        viewModelScope.launch {
+            poiRepository.delete(poi)
         }
     }
 }

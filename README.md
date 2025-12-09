@@ -10,3 +10,4 @@ the screen depending on its value.
 5. I'll add maps to the project; I've also did not had an api key, because the required valid api key by setting up google cloud project with valid billing and this 
 is a public repo. Generally we add map, then we add a list of Markers. Each marker contains coordinates, icon, onClick event. We can then group the markers into clusters.
 Each commit would be a separated branch, merged after pull request, but I've skipped on branching due to limited time.
+6. Project stock consists of :network:socket + :stock app. Run stock app from android studio
